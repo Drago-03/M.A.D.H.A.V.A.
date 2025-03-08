@@ -1,18 +1,20 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Literal
 from datetime import datetime
-import pathway as pw
 import asyncio
 import uvicorn
+import json
+import os
 
 from embeddings import EmbeddingStore
 from llm import LLM
 from metrics_extractor import MetricsExtractor
 from alert_manager import AlertManager
+from domain_processors import DomainProcessor
 
-app = FastAPI()
+app = FastAPI(title="ANAND - Advanced Neural Assistance for Numerous Domain Intelligence")
 
 # Configure CORS
 app.add_middleware(
@@ -24,13 +26,35 @@ app.add_middleware(
 )
 
 # Initialize components
-embedding_store = EmbeddingStore()
+embedding_stores = {
+    "finance": EmbeddingStore(namespace="finance"),
+    "healthcare": EmbeddingStore(namespace="healthcare"),
+    "legal": EmbeddingStore(namespace="legal"),
+    "news": EmbeddingStore(namespace="news"),
+    "ecommerce": EmbeddingStore(namespace="ecommerce"),
+    "education": EmbeddingStore(namespace="education"),
+    "code": EmbeddingStore(namespace="code"),
+    "hr": EmbeddingStore(namespace="hr"),
+    "travel": EmbeddingStore(namespace="travel"),
+    "science": EmbeddingStore(namespace="science"),
+    "cybersecurity": EmbeddingStore(namespace="cybersecurity"),
+    "knowledge": EmbeddingStore(namespace="knowledge"),
+    "realestate": EmbeddingStore(namespace="realestate"),
+    "fitness": EmbeddingStore(namespace="fitness"),
+    "support": EmbeddingStore(namespace="support")
+}
+
 llm = LLM()
 metrics_extractor = MetricsExtractor()
 alert_manager = AlertManager()
+domain_processor = DomainProcessor()
 
 class QueryRequest(BaseModel):
     query: str
+    domain: Literal["finance", "healthcare", "legal", "news", "ecommerce", 
+                   "education", "code", "hr", "travel", "science", 
+                   "cybersecurity", "knowledge", "realestate", "fitness", "support"]
+    user_id: Optional[str] = None
     filters: Optional[dict] = None
 
 class QueryResponse(BaseModel):
@@ -39,48 +63,34 @@ class QueryResponse(BaseModel):
     sources: List[str]
     timestamp: str
     metrics: Optional[Dict[str, Any]] = None
+    domain_specific_data: Optional[Dict[str, Any]] = None
 
-@app.post("/query")
-async def query(request: QueryRequest) -> QueryResponse:
+@app.post("/api/query")
+async def process_query(request: QueryRequest) -> QueryResponse:
     try:
-        # Get relevant documents from FAISS
-        results = embedding_store.similarity_search(request.query)
+        processor_method = getattr(domain_processor, f"process_{request.domain}", None)
+        if not processor_method:
+            raise HTTPException(status_code=400, detail=f"Unsupported domain: {request.domain}")
+
+        result = await processor_method(request.query)
         
-        # Format context for LLM
-        context = [
-            {"text": text, "source": source}
-            for text, source, _ in results
-        ]
+        # Add domain-specific processing here
+        if request.domain == 'finance':
+            # Additional Bloomberg data processing
+            result['domain_specific_data'] = {
+                'real_time_data': True,
+                'data_source': 'Bloomberg Terminal'
+            }
+        elif request.domain == 'legal':
+            # Additional CourtListener processing
+            result['domain_specific_data'] = {
+                'api_version': 'v4',
+                'data_source': 'CourtListener'
+            }
         
-        # Generate response using LLM
-        answer = await llm.generate_response(request.query, context)
+        result['timestamp'] = datetime.utcnow().isoformat()
         
-        # Extract financial metrics if present
-        metrics = None
-        if any(keyword in request.query.lower() for keyword in ['metrics', 'financial', 'numbers']):
-            metrics_data = {}
-            for text, _, _ in results:
-                extracted = metrics_extractor.extract_metrics(text)
-                for field, value in extracted.__dict__.items():
-                    if value is not None:
-                        metrics_data[field] = value
-            if metrics_data:
-                metrics = metrics_data
-                
-                # Send alert if significant metrics are found
-                await alert_manager.send_alert(
-                    "metrics_found",
-                    "New financial metrics detected in query",
-                    metrics_data
-                )
-        
-        return QueryResponse(
-            answer=answer,
-            context=[text for text, _, _ in results],
-            sources=[source for _, source, _ in results],
-            timestamp=datetime.utcnow().isoformat(),
-            metrics=metrics
-        )
+        return QueryResponse(**result)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -88,44 +98,76 @@ async def query(request: QueryRequest) -> QueryResponse:
 async def get_alerts():
     return alert_manager.get_alert_history()
 
-# Pathway data processing pipeline
-def setup_pathway_pipeline():
-    with pw.Config.interactive():
-        # Input table for financial data
-        input_table = pw.io.fs.read(
-            "data/*.jsonl",
-            mode="streaming",
-            format="json"
-        )
+@app.get("/user/{user_id}/history")
+async def get_user_history(user_id: str):
+    try:
+        history = []
+        try:
+            with open(f"data/query_history_{user_id}.jsonl", "r") as f:
+                for line in f:
+                    history.append(json.loads(line))
+        except FileNotFoundError:
+            # No history yet
+            pass
         
-        # Process and index new documents
-        def process_document(doc):
-            embedding_store.add_texts(
-                [doc["content"]],
-                [doc["source"]]
-            )
-            
-            # Extract and alert on new financial metrics
-            metrics = metrics_extractor.extract_metrics(doc["content"])
-            if any(value is not None for value in metrics.__dict__.values()):
-                asyncio.create_task(
-                    alert_manager.send_alert(
-                        "new_document_metrics",
-                        f"New financial metrics found in document from {doc['source']}",
-                        metrics.__dict__
-                    )
-                )
-            return doc
+        return {"history": history}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+async def process_documents():
+    """Process documents from each domain directory."""
+    for domain in embedding_stores.keys():
+        domain_dir = f"data/{domain}"
+        os.makedirs(domain_dir, exist_ok=True)
         
-        processed = input_table.select(process_document)
-        processed.run()
+        try:
+            # Process all JSON files in the domain directory
+            for filename in os.listdir(domain_dir):
+                if filename.endswith('.jsonl'):
+                    file_path = os.path.join(domain_dir, filename)
+                    with open(file_path, 'r') as f:
+                        for line in f:
+                            try:
+                                doc = json.loads(line)
+                                embedding_stores[domain].add_texts(
+                                    [doc["content"]],
+                                    [doc["source"]],
+                                    [doc.get("metadata", {})]
+                                )
+                                
+                                # Domain-specific processing
+                                if domain == "legal" and any(term in doc["content"].lower() 
+                                    for term in ["risk", "compliance", "regulation"]):
+                                    await alert_manager.send_alert(
+                                        "legal_update",
+                                        f"New legal document requiring review from {doc['source']}",
+                                        {"preview": doc["content"][:200] + "..."}
+                                    )
+                                elif domain == "cybersecurity" and any(term in doc["content"].lower() 
+                                    for term in ["vulnerability", "threat", "exploit"]):
+                                    await alert_manager.send_alert(
+                                        "security_alert",
+                                        f"New security threat detected from {doc['source']}",
+                                        {"preview": doc["content"][:200] + "..."}
+                                    )
+                            except json.JSONDecodeError:
+                                continue
+        except Exception as e:
+            print(f"Error processing documents for domain {domain}: {str(e)}")
 
 if __name__ == "__main__":
-    # Start WebSocket server for alerts
-    asyncio.create_task(alert_manager.start_websocket_server())
-    
-    # Start Pathway pipeline
-    asyncio.create_task(setup_pathway_pipeline())
-    
-    # Run FastAPI server
+    import asyncio
+
+    async def main():
+        for domain in embedding_stores.keys():
+            os.makedirs(f"data/{domain}", exist_ok=True)
+
+        await asyncio.gather(
+            alert_manager.start_websocket_server(),
+            process_documents()
+        )
+
+    loop = asyncio.get_event_loop()
+    loop.create_task(main())
+
     uvicorn.run(app, host="0.0.0.0", port=8000)

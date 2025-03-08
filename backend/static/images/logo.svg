@@ -1,0 +1,6 @@
+<svg width="200" height="50" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20.5 10L30 25L20.5 40H10L0.5 25L10 10H20.5Z" fill="#3a3f6d"/>
+  <path d="M40.5 10L50 25L40.5 40H30L20.5 25L30 10H40.5Z" fill="#4a90e2"/>
+  <path d="M30.5 5L40 20L30.5 35H20L10.5 20L20 5H30.5Z" fill="#5ce5b4" fill-opacity="0.6"/>
+  <text x="60" y="30" font-family="Inter, sans-serif" font-weight="700" font-size="20" fill="#3a3f6d">M.A.D.H.A.V.A</text>
+</svg> 

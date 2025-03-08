@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M.A.D.H.A.V.A - AI Memory System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3a3f6d;
+            --secondary-color: #4a90e2;
+            --accent-color: #5ce5b4;
+            --text-color: #333;
+            --light-text: #fff;
+            --background-color: #f8f9fa;
+            --card-bg: #fff;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), #2c3e50);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            height: 600px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+
+        .login-form {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-section {
+            flex: 1;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/static/images/ai-memory.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--light-text);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .hero-section h1 {
+            color: var(--light-text);
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .auth-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .auth-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 15px;
+            border-radius: var(--border-radius);
+            border: 1px solid #ddd;
+            background-color: var(--card-bg);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .auth-btn:hover {
+            background-color: #f5f5f5;
+        }
+
+        .auth-btn img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #777;
+        }
+
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .divider span {
+            padding: 0 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #2c3e50;
+        }
+
+        .terms {
+            font-size: 14px;
+            color: #777;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .terms a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .cloud-providers {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .cloud-providers img {
+            height: 30px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .cloud-providers img:hover {
+            opacity: 1;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .footer-links a {
+            color: #777;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .hero-section {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-form">
+            <div class="logo">
+                <img src="/static/images/logo.svg" alt="M.A.D.H.A.V.A Logo">
+            </div>
+            <h1>Welcome to M.A.D.H.A.V.A</h1>
+            
+            <div class="auth-options">
+                <button class="auth-btn">
+                    <img src="/static/images/google-icon.svg" alt="Google">
+                    Continue with Google
+                </button>
+                <button class="auth-btn">
+                    <img src="/static/images/github-icon.svg" alt="GitHub">
+                    Continue with GitHub
+                </button>
+                <button class="auth-btn">
+                    <img src="/static/images/microsoft-icon.svg" alt="Microsoft">
+                    Continue with Microsoft
+                </button>
+            </div>
+            
+            <div class="divider">
+                <span>Or use your email</span>
+            </div>
+            
+            <form action="/login" method="post">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="your@example.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="pinecone_api_key">Pinecone API Key</label>
+                    <input type="password" id="pinecone_api_key" name="pinecone_api_key" class="form-control" placeholder="Enter your Pinecone API key" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Continue</button>
+            </form>
+            
+            <p class="terms">
+                By submitting, you accept the <a href="#">Master Subscription Agreement</a>
+            </p>
+            
+            <div class="cloud-providers">
+                <img src="/static/images/aws-logo.svg" alt="AWS">
+                <img src="/static/images/gcp-logo.svg" alt="GCP">
+                <img src="/static/images/azure-logo.svg" alt="Azure">
+            </div>
+            
+            <div class="footer-links">
+                <a href="#">Use SSO</a>
+                <a href="#">Need help?</a>
+                <a href="#">Get support</a>
+            </div>
+        </div>
+        
+        <div class="hero-section">
+            <h1>Long-term memory for AI</h1>
+            <p>Build intelligent applications with real-time data streaming and context-aware responses</p>
+            <div class="cta">
+                <h2>Start building for free</h2>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

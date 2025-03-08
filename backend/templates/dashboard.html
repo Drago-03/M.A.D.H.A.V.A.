@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M.A.D.H.A.V.A Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3a3f6d;
+            --secondary-color: #4a90e2;
+            --accent-color: #5ce5b4;
+            --text-color: #333;
+            --light-text: #fff;
+            --background-color: #f8f9fa;
+            --card-bg: #fff;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .nav-item {
+            margin-bottom: 10px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            color: var(--light-text);
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link svg {
+            margin-right: 10px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-menu img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .stat-title {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .stat-change {
+            font-size: 14px;
+            color: #28a745;
+        }
+
+        .stat-change.negative {
+            color: #dc3545;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #2c3e50;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .recent-queries {
+            margin-top: 30px;
+        }
+
+        .query-list {
+            list-style: none;
+        }
+
+        .query-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .query-item:last-child {
+            border-bottom: none;
+        }
+
+        .query-text {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .query-meta {
+            display: flex;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .query-domain {
+            margin-right: 15px;
+        }
+
+        .query-time {
+            margin-right: 15px;
+        }
+
+        .domain-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            background-color: #e9ecef;
+            margin-right: 5px;
+        }
+
+        .domain-tag.finance {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .domain-tag.legal {
+            background-color: #cfe2ff;
+            color: #084298;
+        }
+
+        .domain-tag.healthcare {
+            background-color: #f8d7da;
+            color: #842029;
+        }
+
+        .domain-tag.code {
+            background-color: #e2e3e5;
+            color: #41464b;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="/static/images/logo.svg" alt="M.A.D.H.A.V.A Logo">
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        Conversations
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                        Documents
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                        Settings
+                    </a>
+                </li>
+                <li class="nav-item" style="margin-top: auto;">
+                    <a href="/logout" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        
+        <main class="main-content">
+            <div class="header">
+                <h1 class="page-title">Dashboard</h1>
+                <div class="user-menu">
+                    <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User">
+                    <span>user@example.com</span>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-title">Total Documents</div>
+                    <div class="stat-value">1,254</div>
+                    <div class="stat-change">+12% from last week</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Vector Count</div>
+                    <div class="stat-value">5,872</div>
+                    <div class="stat-change">+8% from last week</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Queries Today</div>
+                    <div class="stat-value">128</div>
+                    <div class="stat-change negative">-3% from yesterday</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Active Domains</div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-change">+2 from last month</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Quick Query</h2>
+                </div>
+                <form>
+                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <input type="text" placeholder="Ask a question..." style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: var(--border-radius);">
+                        <select style="padding: 10px; border: 1px solid #ddd; border-radius: var(--border-radius);">
+                            <option value="all">All Domains</option>
+                            <option value="finance">Finance</option>
+                            <option value="legal">Legal</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="code">Code</option>
+                        </select>
+                        <button type="submit" class="btn">Ask</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="recent-queries">
+                <div class="card-header">
+                    <h2 class="card-title">Recent Queries</h2>
+                    <button class="btn btn-outline">View All</button>
+                </div>
+                <ul class="query-list">
+                    <li class="query-item">
+                        <div class="query-text">What are the latest financial regulations affecting cryptocurrency?</div>
+                        <div class="query-meta">
+                            <span class="query-domain">
+                                <span class="domain-tag finance">Finance</span>
+                                <span class="domain-tag legal">Legal</span>
+                            </span>
+                            <span class="query-time">2 hours ago</span>
+                        </div>
+                    </li>
+                    <li class="query-item">
+                        <div class="query-text">How do I implement a real-time RAG pipeline with Pinecone?</div>
+                        <div class="query-meta">
+                            <span class="query-domain">
+                                <span class="domain-tag code">Code</span>
+                            </span>
+                            <span class="query-time">5 hours ago</span>
+                        </div>
+                    </li>
+                    <li class="query-item">
+                        <div class="query-text">What are the latest treatment options for diabetes?</div>
+                        <div class="query-meta">
+                            <span class="query-domain">
+                                <span class="domain-tag healthcare">Healthcare</span>
+                            </span>
+                            <span class="query-time">Yesterday</span>
+                        </div>
+                    </li>
+                    <li class="query-item">
+                        <div class="query-text">Explain the implications of the new data privacy laws in Europe.</div>
+                        <div class="query-meta">
+                            <span class="query-domain">
+                                <span class="domain-tag legal">Legal</span>
+                            </span>
+                            <span class="query-time">2 days ago</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </main>
+    </div>
+</body>
+</html> 
