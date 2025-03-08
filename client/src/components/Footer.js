@@ -8,10 +8,8 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-section">
           <div className="footer-logo">
-            <img src={logo} alt="M.A.D.H.A.V.A. Logo" />
+            <img src={logo} alt="Logo" />
           </div>
-          <h3>M.A.D.H.A.V.A.</h3>
-          <p>Multi-domain Analytical Data Harvesting & Automated Verification Assistant</p>
         </div>
         <div className="footer-section">
           <h4>Finance</h4>
@@ -75,7 +73,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} M.A.D.H.A.V.A. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} All rights reserved.</p>
       </div>
     </footer>
   );

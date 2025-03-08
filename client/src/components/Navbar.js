@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <Link to="/">M.A.D.H.A.V.A.</Link>
+        <Link to="/"></Link>
       </div>
       <div className="navbar-links">
         <Link to="/finance" className={isActive('/finance') ? 'active' : ''}>
@@ -21,6 +21,9 @@ const Navbar = () => {
         </Link>
         <Link to="/legal" className={isActive('/legal') ? 'active' : ''}>
           Legal
+        </Link>
+        <Link to="/code-assistant" className={isActive('/code-assistant') ? 'active' : ''}>
+          Code Assistant
         </Link>
         <Link to="/news" className={isActive('/news') ? 'active' : ''}>
           News

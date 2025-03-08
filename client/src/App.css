@@ -5,33 +5,6 @@
   flex-direction: column;
 }
 
-.floating-logo {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  animation: float 3s ease-in-out infinite;
-}
-
-.floating-logo img {
-  width: 150px;
-  height: auto;
-  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
-}
-
-@keyframes float {
-  0% {
-    transform: translateX(-50%) translateY(0px);
-  }
-  50% {
-    transform: translateX(-50%) translateY(-10px);
-  }
-  100% {
-    transform: translateX(-50%) translateY(0px);
-  }
-}
-
 .content {
   flex: 1;
 }
@@ -43,17 +16,39 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
   padding: 2rem;
   text-align: center;
-  padding-top: 120px;
 }
 
-.App-header h1 {
-  font-size: 4rem;
-  margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
+.header-logo {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.header-logo img {
+  width: 500px;
+  height: auto;
+  filter: drop-shadow(0 0 25px rgba(74, 144, 226, 0.4));
+  transition: all 0.5s ease;
+}
+
+.header-logo img:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 40px rgba(74, 144, 226, 0.8));
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
 }
 
 .App-header p {
@@ -104,17 +99,38 @@
   line-height: 1.5;
 }
 
+.code-features {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+}
+
+.code-features ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.code-features li {
+  color: #4a90e2;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.code-features li:hover {
+  transform: translateX(5px);
+}
+
 @media (max-width: 768px) {
-  .floating-logo img {
-    width: 120px;
-  }
-
-  .App-header {
-    padding-top: 100px;
-  }
-
-  .App-header h1 {
-    font-size: 3rem;
+  .header-logo img {
+    width: 320px;
   }
 
   .App-header p {
@@ -124,4 +140,26 @@
   .domain-grid {
     padding: 2rem 1rem;
   }
+
+  .code-features li {
+    font-size: 0.9rem;
+  }
+}
+
+.menu-toggle {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #fff;
+  padding: 0.5rem;
+  z-index: 999;
+  transition: transform 0.3s ease;
+}
+
+.menu-toggle:hover {
+  transform: scale(1.1);
 } 
