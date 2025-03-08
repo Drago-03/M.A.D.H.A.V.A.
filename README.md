@@ -1,6 +1,6 @@
 # M.A.D.H.A.V.A
 
-**Multi-domain Adaptive Dynamic Hybrid AI Vector Architecture**
+**Multi-domain Analytical Data Harvesting & Automated Verification Assistant**
 
 ![M.A.D.H.A.V.A Logo](backend/static/images/logo.svg)
 
