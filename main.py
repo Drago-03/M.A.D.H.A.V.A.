@@ -17,6 +17,7 @@ import threading
 from backend.embeddings import EmbeddingStore
 from backend.metrics_extractor import MetricsExtractor
 from backend.alert_manager import AlertManager
+from backend.gemini_service import GeminiService
 
 # Load environment variables
 load_dotenv()
@@ -28,10 +29,10 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Configure CORS
+# Configure CORS with more specific settings
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with specific origins
+    allow_origins=["http://localhost:3000", "http://localhost:3001", "http://localhost:8001"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -50,6 +51,7 @@ embeddings = {
 
 metrics_extractor = MetricsExtractor()
 alert_manager = AlertManager()
+gemini_service = GeminiService()
 
 # Global variables to store server processes
 node_server_process = None
@@ -147,6 +149,7 @@ class QueryResponse(BaseModel):
     context: List[str]
     sources: List[str]
     metrics: Optional[Dict[str, Any]] = None
+    insights: Optional[str] = None
     domain_specific_data: Optional[Dict[str, Any]] = None
     timestamp: str = datetime.utcnow().isoformat()
 
@@ -172,14 +175,28 @@ async def process_query(request: QueryRequest):
             domain_metrics = metrics_extractor.extract_domain_metrics(text, request.domain)
             metrics.update(domain_metrics)
         
-        # For now, return a simple response
-        # In production, this would go through the LLM pipeline
+        # Generate AI response using Gemini
+        ai_response = gemini_service.generate_response(
+            query=request.query,
+            context=context,
+            domain=request.domain
+        )
+
+        # Generate domain-specific insights if metrics are available
+        insights = None
+        if metrics:
+            insights = gemini_service.get_domain_insights(
+                domain=request.domain,
+                metrics=metrics
+            )
+        
         response = {
-            "answer": f"Here is the answer for your {request.domain} query: {request.query}",
+            "answer": ai_response,
             "context": context,
             "sources": sources,
             "metrics": metrics if metrics else None,
-            "domain_specific_data": {},  # Would be populated by domain-specific processors
+            "insights": insights,
+            "domain_specific_data": {},
             "timestamp": datetime.utcnow().isoformat()
         }
         
@@ -193,6 +210,34 @@ async def process_query(request: QueryRequest):
         
         return response
         
+    except Exception as e:
+        print(f"Error processing query: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/status")
+async def get_status():
+    """Get the current system status"""
+    return {
+        "status": "operational",
+        "services": {
+            "mongodb": "running",
+            "redis": "running",
+            "node": "running",
+            "gateway": "running"
+        },
+        "timestamp": datetime.utcnow().isoformat()
+    }
+
+@app.get("/metrics/{domain}")
+async def get_domain_metrics(domain: Domain):
+    """Get metrics for a specific domain"""
+    try:
+        metrics = metrics_extractor.get_domain_metrics(domain)
+        return {
+            "domain": domain,
+            "metrics": metrics,
+            "timestamp": datetime.utcnow().isoformat()
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

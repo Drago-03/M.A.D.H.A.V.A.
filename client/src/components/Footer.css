@@ -1,37 +1,54 @@
 .footer {
   background-color: #1a1a1a;
-  color: #fff;
+  color: #ffffff;
   padding: 4rem 2rem 2rem;
   margin-top: 4rem;
 }
 
 .footer-content {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.footer-section {
+  padding: 0 1rem;
+}
+
+.footer-logo {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.footer-logo img {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
 }
 
 .footer-section h3 {
-  font-family: 'Montserrat', sans-serif;
+  color: #4a90e2;
   font-size: 1.5rem;
-  margin: 0 0 1rem;
-  font-weight: 700;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-align: center;
 }
 
 .footer-section h4 {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.2rem;
-  margin: 0 0 1rem;
-  font-weight: 600;
   color: #4a90e2;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
 }
 
 .footer-section p {
-  margin: 0;
+  color: #b3b3b3;
   line-height: 1.6;
-  opacity: 0.8;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .footer-section ul {
@@ -41,18 +58,13 @@
 }
 
 .footer-section ul li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  color: #b3b3b3;
+  transition: color 0.3s ease;
+  cursor: pointer;
 }
 
-.footer-section ul li a {
-  color: #fff;
-  text-decoration: none;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
-}
-
-.footer-section ul li a:hover {
-  opacity: 1;
+.footer-section ul li:hover {
   color: #4a90e2;
 }
 
@@ -60,22 +72,29 @@
   margin-top: 3rem;
   padding-top: 2rem;
   text-align: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid #333;
 }
 
 .footer-bottom p {
-  margin: 0;
-  opacity: 0.6;
+  color: #666;
   font-size: 0.9rem;
 }
 
 @media (max-width: 768px) {
   .footer {
-    padding: 3rem 1.5rem 1.5rem;
+    padding: 3rem 1rem 1.5rem;
   }
-  
+
   .footer-content {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .footer-section {
+    padding: 0;
+  }
+
+  .footer-logo img {
+    width: 100px;
   }
 } 

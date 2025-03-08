@@ -1,56 +1,76 @@
 import React from 'react';
 import './Footer.css';
+import logo from '../logo.png';
 
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-section">
+          <div className="footer-logo">
+            <img src={logo} alt="M.A.D.H.A.V.A. Logo" />
+          </div>
           <h3>M.A.D.H.A.V.A.</h3>
           <p>Multi-domain Analytical Data Harvesting & Automated Verification Assistant</p>
-          <div className="social-links">
-            <a href="https://github.com/madhava-ai" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://discord.gg/madhava" target="_blank" rel="noopener noreferrer">Discord</a>
-          </div>
         </div>
         <div className="footer-section">
-          <h4>Domain Analysis</h4>
+          <h4>Finance</h4>
           <ul>
-            <li><a href="/finance">Finance</a></li>
-            <li><a href="/healthcare">Healthcare</a></li>
-            <li><a href="/legal">Legal</a></li>
-            <li><a href="/news">News</a></li>
-            <li><a href="/ecommerce">E-commerce</a></li>
+            <li>Market Analysis</li>
+            <li>Investment Insights</li>
+            <li>Risk Assessment</li>
+            <li>Portfolio Management</li>
+            <li>Financial Planning</li>
           </ul>
         </div>
         <div className="footer-section">
-          <h4>Code Assistance</h4>
+          <h4>Healthcare</h4>
           <ul>
-            <li><a href="/code/debug">AI Debugging</a></li>
-            <li><a href="/code/review">Code Review</a></li>
-            <li><a href="/code/refactor">Refactoring</a></li>
-            <li><a href="/code/optimize">Performance Optimization</a></li>
-            <li><a href="/code/security">Security Analysis</a></li>
+            <li>Medical Research</li>
+            <li>Clinical Analysis</li>
+            <li>Patient Care</li>
+            <li>Health Monitoring</li>
+            <li>Treatment Plans</li>
           </ul>
         </div>
         <div className="footer-section">
-          <h4>Resources</h4>
+          <h4>Legal</h4>
           <ul>
-            <li><a href="/docs">Documentation</a></li>
-            <li><a href="/api">API Reference</a></li>
-            <li><a href="/examples">Code Examples</a></li>
-            <li><a href="/tutorials">Tutorials</a></li>
-            <li><a href="/blog">Tech Blog</a></li>
+            <li>Case Analysis</li>
+            <li>Legal Research</li>
+            <li>Compliance</li>
+            <li>Document Review</li>
+            <li>Risk Management</li>
           </ul>
         </div>
         <div className="footer-section">
-          <h4>Support</h4>
+          <h4>Code Assistant</h4>
           <ul>
-            <li><a href="/community">Community</a></li>
-            <li><a href="/status">System Status</a></li>
-            <li>Email: support@madhava.ai</li>
-            <li><a href="/pricing">Pricing</a></li>
-            <li><a href="/enterprise">Enterprise</a></li>
+            <li>AI Debugging</li>
+            <li>Code Review</li>
+            <li>Refactoring</li>
+            <li>Performance Optimization</li>
+            <li>Security Analysis</li>
+          </ul>
+        </div>
+        <div className="footer-section">
+          <h4>News</h4>
+          <ul>
+            <li>Trend Analysis</li>
+            <li>Real-time Updates</li>
+            <li>Event Tracking</li>
+            <li>Source Verification</li>
+            <li>Impact Assessment</li>
+          </ul>
+        </div>
+        <div className="footer-section">
+          <h4>E-commerce</h4>
+          <ul>
+            <li>Market Trends</li>
+            <li>Consumer Behavior</li>
+            <li>Sales Analytics</li>
+            <li>Product Analysis</li>
+            <li>Performance Metrics</li>
           </ul>
         </div>
       </div>

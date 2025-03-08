@@ -5,6 +5,33 @@
   flex-direction: column;
 }
 
+.floating-logo {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  animation: float 3s ease-in-out infinite;
+}
+
+.floating-logo img {
+  width: 150px;
+  height: auto;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes float {
+  0% {
+    transform: translateX(-50%) translateY(0px);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0px);
+  }
+}
+
 .content {
   flex: 1;
 }
@@ -19,6 +46,7 @@
   color: white;
   padding: 2rem;
   text-align: center;
+  padding-top: 120px;
 }
 
 .App-header h1 {
@@ -77,6 +105,14 @@
 }
 
 @media (max-width: 768px) {
+  .floating-logo img {
+    width: 120px;
+  }
+
+  .App-header {
+    padding-top: 100px;
+  }
+
   .App-header h1 {
     font-size: 3rem;
   }

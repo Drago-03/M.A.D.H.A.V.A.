@@ -1,32 +1,25 @@
 import React, { useState } from 'react';
+import { api } from '../services/api';
 import './QueryInterface.css';
 
 const QueryInterface = ({ domain }) => {
   const [query, setQuery] = useState('');
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
 
     try {
-      const res = await fetch('http://localhost:4000/query', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query,
-          domain: domain.toLowerCase(),
-        }),
-      });
-
-      const data = await res.json();
+      const data = await api.query(domain, query);
       setResponse(data);
     } catch (error) {
       console.error('Error:', error);
-      setResponse({ error: 'Failed to get response' });
+      setError('Failed to get response. Please try again later.');
+      setResponse(null);
     } finally {
       setLoading(false);
     }
@@ -42,12 +35,19 @@ const QueryInterface = ({ domain }) => {
             onChange={(e) => setQuery(e.target.value)}
             placeholder={`Ask anything about ${domain}...`}
             required
+            disabled={loading}
           />
           <button type="submit" disabled={loading}>
             {loading ? 'Processing...' : 'Ask'}
           </button>
         </div>
       </form>
+
+      {error && (
+        <div className="error-message">
+          {error}
+        </div>
+      )}
 
       {response && (
         <div className="response-section">
@@ -56,6 +56,13 @@ const QueryInterface = ({ domain }) => {
             <p>{response.answer}</p>
           </div>
           
+          {response.insights && (
+            <div className="insights">
+              <h3>Key Insights:</h3>
+              <p>{response.insights}</p>
+            </div>
+          )}
+
           {response.context && response.context.length > 0 && (
             <div className="context">
               <h3>Context:</h3>

@@ -19,12 +19,18 @@
   border: 2px solid #e1e1e1;
   border-radius: 4px;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .input-group input:focus {
   outline: none;
   border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.input-group input:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
 }
 
 .input-group button {
@@ -35,28 +41,61 @@
   border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  min-width: 120px;
 }
 
-.input-group button:hover {
+.input-group button:hover:not(:disabled) {
   background-color: #357abd;
+  transform: translateY(-1px);
 }
 
 .input-group button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
+  transform: none;
+}
+
+.error-message {
+  background-color: #fff2f0;
+  border: 1px solid #ffccc7;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  color: #ff4d4f;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.error-message::before {
+  content: "⚠️";
+  margin-right: 0.5rem;
 }
 
 .response-section {
   background: #f8f9fa;
   padding: 1.5rem;
   border-radius: 4px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .response-section h3 {
   color: #2c3e50;
   margin-bottom: 1rem;
   font-size: 1.2rem;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .answer {
@@ -65,6 +104,7 @@
 
 .answer p {
   line-height: 1.6;
+  color: #333;
 }
 
 .context ul {
@@ -78,6 +118,8 @@
   margin-bottom: 0.5rem;
   border-radius: 4px;
   border-left: 4px solid #4a90e2;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
 .metrics {
@@ -90,4 +132,43 @@
   padding: 1rem;
   border-radius: 4px;
   overflow-x: auto;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.insights {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: #f0f7ff;
+  border-radius: 4px;
+  border-left: 4px solid #4a90e2;
+}
+
+.insights h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.insights p {
+  line-height: 1.6;
+  color: #333;
+  white-space: pre-line;
+}
+
+@media (max-width: 768px) {
+  .query-interface {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+
+  .input-group button {
+    width: 100%;
+    padding: 1rem;
+  }
 } 

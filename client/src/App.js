@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import DomainPage from './pages/DomainPage';
+import logo from './logo.png';
 import './App.css';
 
 // Icons (you can replace these with actual icons)
@@ -26,6 +27,9 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <div className="floating-logo">
+          <img src={logo} alt="M.A.D.H.A.V.A. Logo" />
+        </div>
         <Navbar />
         <div className="content">
           <Routes>
