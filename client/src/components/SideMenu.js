@@ -78,12 +78,6 @@ const SideMenu = ({ isOpen, onClose }) => {
                   Customization
                 </Link>
               </li>
-              <li>
-                <Link to="/theme">
-                  <span className="icon">🌓</span>
-                  Theme
-                </Link>
-              </li>
             </ul>
           </div>
 

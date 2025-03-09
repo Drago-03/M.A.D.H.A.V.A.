@@ -1,0 +1,48 @@
+# Version control
+.git
+.gitignore
+
+# Dependencies
+node_modules
+venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Development
+.vscode
+.idea
+*.log
+npm-debug.log*
+
+# Build
+client/build
+client/dist
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Documentation
+README.md
+*.md
+wiki/
+
+# Test
+coverage/
+.pytest_cache/
+__tests__/
+test/
+tests/
+
+# Misc
+.DS_Store
+*.swp
+*.swo 

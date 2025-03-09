@@ -22,8 +22,8 @@
   left: -300px;
   width: 300px;
   height: 100vh;
-  background-color: #fff;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  background-color: var(--bg-secondary);
+  box-shadow: 2px 0 8px var(--shadow-color);
   transition: all 0.3s ease;
   z-index: 1001;
   overflow-y: auto;
@@ -35,7 +35,7 @@
 
 .side-menu-header {
   padding: 1rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: flex-end;
 }
@@ -45,14 +45,14 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: #666;
+  color: var(--text-secondary);
   padding: 0.5rem;
   line-height: 1;
   transition: color 0.3s ease;
 }
 
 .close-button:hover {
-  color: #333;
+  color: var(--text-primary);
 }
 
 .side-menu-content {
@@ -64,13 +64,13 @@
 }
 
 .menu-section h3 {
-  color: #666;
+  color: var(--text-secondary);
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .menu-section ul {
@@ -87,15 +87,15 @@
   display: flex;
   align-items: center;
   padding: 0.75rem 1rem;
-  color: #333;
+  color: var(--text-primary);
   text-decoration: none;
   border-radius: 6px;
   transition: all 0.3s ease;
 }
 
 .menu-section ul li a:hover {
-  background-color: #f5f5f5;
-  color: #4a90e2;
+  background-color: var(--bg-primary);
+  color: var(--accent-color);
   transform: translateX(5px);
 }
 
@@ -136,14 +136,14 @@
 }
 
 .side-menu::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--bg-primary);
 }
 
 .side-menu::-webkit-scrollbar-thumb {
-  background: #ccc;
+  background: var(--border-color);
   border-radius: 3px;
 }
 
 .side-menu::-webkit-scrollbar-thumb:hover {
-  background: #999;
+  background: var(--text-secondary);
 } 

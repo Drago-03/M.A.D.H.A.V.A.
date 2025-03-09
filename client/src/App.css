@@ -1,6 +1,6 @@
 .App {
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: var(--bg-primary);
   display: flex;
   flex-direction: column;
 }
@@ -10,7 +10,7 @@
 }
 
 .App-header {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 100%);
+  background: var(--header-bg);
   min-height: 60vh;
   display: flex;
   flex-direction: column;
@@ -27,13 +27,13 @@
 .header-logo img {
   width: 500px;
   height: auto;
-  filter: drop-shadow(0 0 25px rgba(74, 144, 226, 0.4));
+  filter: drop-shadow(0 0 25px var(--shadow-color));
   transition: all 0.5s ease;
 }
 
 .header-logo img:hover {
   transform: scale(1.05);
-  filter: drop-shadow(0 0 40px rgba(74, 144, 226, 0.8));
+  filter: drop-shadow(0 0 40px var(--accent-color));
 }
 
 @keyframes pulse {
@@ -68,10 +68,10 @@
 }
 
 .domain-card {
-  background: white;
+  background: var(--card-bg);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--shadow-color);
   text-align: center;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -79,7 +79,7 @@
 
 .domain-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .domain-card .domain-icon {
@@ -88,13 +88,13 @@
 }
 
 .domain-card h2 {
-  color: #2c3e50;
+  color: var(--text-primary);
   margin: 0 0 1rem;
   font-family: 'Montserrat', sans-serif;
 }
 
 .domain-card p {
-  color: #666;
+  color: var(--text-secondary);
   margin: 0;
   line-height: 1.5;
 }
@@ -102,7 +102,7 @@
 .code-features {
   margin-top: 1.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border-color);
 }
 
 .code-features ul {
@@ -115,7 +115,7 @@
 }
 
 .code-features li {
-  color: #4a90e2;
+  color: var(--accent-color);
   font-size: 0.95rem;
   display: flex;
   align-items: center;
@@ -162,4 +162,33 @@
 
 .menu-toggle:hover {
   transform: scale(1.1);
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: var(--bg-secondary);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px var(--shadow-color);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  color: var(--text-primary);
 } 
