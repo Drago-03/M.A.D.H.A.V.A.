@@ -30,6 +30,7 @@ X-API-Key: <your_api_key>
 ### Query Processing
 
 #### Process Query
+
 ```http
 POST /api/query
 Content-Type: application/json
@@ -46,6 +47,7 @@ Authorization: Bearer <token>
 ```
 
 Response:
+
 ```json
 {
   "response": "string",
@@ -56,12 +58,14 @@ Response:
 ```
 
 #### Get Query History
+
 ```http
 GET /api/queries
 Authorization: Bearer <token>
 ```
 
 Response:
+
 ```json
 {
   "queries": [
@@ -79,6 +83,7 @@ Response:
 ### User Management
 
 #### Register User
+
 ```http
 POST /api/auth/register
 Content-Type: application/json
@@ -91,6 +96,7 @@ Content-Type: application/json
 ```
 
 Response:
+
 ```json
 {
   "user_id": "string",
@@ -100,6 +106,7 @@ Response:
 ```
 
 #### Login
+
 ```http
 POST /api/auth/login
 Content-Type: application/json
@@ -111,6 +118,7 @@ Content-Type: application/json
 ```
 
 Response:
+
 ```json
 {
   "token": "string",
@@ -125,6 +133,7 @@ Response:
 ### Domain-Specific Endpoints
 
 #### Legal Analysis
+
 ```http
 POST /api/legal/analyze
 Content-Type: application/json
@@ -138,6 +147,7 @@ Authorization: Bearer <token>
 ```
 
 Response:
+
 ```json
 {
   "analysis": "string",
@@ -148,6 +158,7 @@ Response:
 ```
 
 #### Code Review
+
 ```http
 POST /api/code/review
 Content-Type: application/json
@@ -161,6 +172,7 @@ Authorization: Bearer <token>
 ```
 
 Response:
+
 ```json
 {
   "review": "string",
@@ -171,6 +183,7 @@ Response:
 ```
 
 #### Financial Analysis
+
 ```http
 POST /api/finance/analyze
 Content-Type: application/json
@@ -184,6 +197,7 @@ Authorization: Bearer <token>
 ```
 
 Response:
+
 ```json
 {
   "analysis": "string",
@@ -196,12 +210,14 @@ Response:
 ### Analytics
 
 #### Get Usage Statistics
+
 ```http
 GET /api/analytics/usage
 Authorization: Bearer <token>
 ```
 
 Response:
+
 ```json
 {
   "total_queries": "number",
@@ -213,11 +229,13 @@ Response:
 ## WebSocket Endpoints
 
 ### Real-time Updates
+
 ```
 WebSocket: ws://localhost:8000/ws
 ```
 
 Connection Parameters:
+
 ```json
 {
   "token": "string",
@@ -226,6 +244,7 @@ Connection Parameters:
 ```
 
 Message Format:
+
 ```json
 {
   "type": "string",
@@ -237,6 +256,7 @@ Message Format:
 ## Error Responses
 
 ### Standard Error Format
+
 ```json
 {
   "error": {
@@ -260,6 +280,7 @@ Message Format:
 
 - Rate limit: 100 requests per minute
 - Headers:
+
   ```http
   X-RateLimit-Limit: 100
   X-RateLimit-Remaining: 95
@@ -269,11 +290,13 @@ Message Format:
 ## Pagination
 
 Query Parameters:
+
 ```
 ?page=1&limit=10&sort=timestamp&order=desc
 ```
 
 Response Format:
+
 ```json
 {
   "data": [],
@@ -289,6 +312,7 @@ Response Format:
 ## API Versioning
 
 Version is specified in the URL:
+
 ```
 /api/v1/endpoint
 ```
@@ -313,4 +337,4 @@ Version is specified in the URL:
 4. **Security**
    - Use HTTPS
    - Validate input
-   - Sanitize output 
+   - Sanitize output

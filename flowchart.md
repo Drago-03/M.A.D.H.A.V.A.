@@ -39,6 +39,7 @@ graph TB
 ## Detailed Workflow
 
 ### 1. User Interaction Flow
+
 ```mermaid
 sequenceDiagram
     participant User
@@ -59,6 +60,7 @@ sequenceDiagram
 ```
 
 ### 2. Domain-Specific Processing
+
 ```mermaid
 graph LR
     subgraph Domains
@@ -88,6 +90,7 @@ graph LR
 ## Component Details
 
 ### 1. Frontend Components
+
 - **User Interface**
   - Domain selection cards
   - Query interface
@@ -96,6 +99,7 @@ graph LR
   - Metrics visualization
 
 ### 2. Backend Services
+
 - **FastAPI Gateway**
   - Route handling
   - Request validation
@@ -128,6 +132,7 @@ graph LR
   - Severity management
 
 ### 3. Data Flow
+
 ```mermaid
 flowchart TD
     A[User Query] --> B{Domain Router}
@@ -144,6 +149,7 @@ flowchart TD
 ```
 
 ### 4. Database Architecture
+
 ```mermaid
 graph TB
     subgraph Vector Store
@@ -172,6 +178,7 @@ graph TB
 ## Key Features
 
 ### 1. Domain-Specific Processing
+
 - Finance: Market analysis, investment insights
 - Healthcare: Medical research, clinical analysis
 - Legal: Case analysis, compliance
@@ -180,6 +187,7 @@ graph TB
 - E-commerce: Market trends, consumer behavior
 
 ### 2. RAG Implementation
+
 ```mermaid
 graph LR
     Q[Query] --> E[Embedding]
@@ -191,6 +199,7 @@ graph LR
 ```
 
 ### 3. Performance Optimization
+
 ```mermaid
 graph TD
     subgraph Caching Strategy
@@ -210,6 +219,7 @@ graph TD
 ```
 
 ## Error Handling and Monitoring
+
 ```mermaid
 graph TB
     E[Error Detection] --> C{Classification}
@@ -224,4 +234,4 @@ graph TB
     H --> M[Monitoring]
 ```
 
-This flowchart provides a comprehensive overview of the M.A.D.H.A.V.A. application's architecture, components, and data flow. Each section details the specific responsibilities and interactions within the system, making it easier to understand the complete workflow of the RAG implementation. 
+This flowchart provides a comprehensive overview of the M.A.D.H.A.V.A. application's architecture, components, and data flow. Each section details the specific responsibilities and interactions within the system, making it easier to understand the complete workflow of the RAG implementation.

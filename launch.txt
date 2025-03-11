@@ -1,0 +1,2 @@
+&& pkill -f vite && cd client && npm run dev.H.A.V.A. && pkill -f vite && cd client && npm run dev
+cd backend && uvicorn main:app --reloadpp --rel

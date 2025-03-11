@@ -1,4 +1,4 @@
-# M.A.D.H.A.V.A.
+# M.A.D.H.A.V.A
 
 <div align="center">
   <img src="client/src/logo.png" alt="M.A.D.H.A.V.A. Logo" width="300" />
@@ -27,12 +27,14 @@ M.A.D.H.A.V.A. is an advanced AI-powered assistant that provides intelligent ana
 ## Getting Started
 
 1. Clone the repository
+
 ```bash
 git clone https://github.com/yourusername/M.A.D.H.A.V.A..git
 cd M.A.D.H.A.V.A.
 ```
 
 2. Install dependencies
+
 ```bash
 # Backend
 python -m venv venv
@@ -45,6 +47,7 @@ npm install
 ```
 
 3. Start the application
+
 ```bash
 # Backend
 python main.py
@@ -57,6 +60,7 @@ npm start
 ## Architecture
 
 The application follows a modern microservices architecture:
+
 - Frontend: React.js with modern UI/UX
 - Backend: FastAPI with Python
 - Database: MongoDB, Redis, Vector Store

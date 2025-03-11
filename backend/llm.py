@@ -1,10 +1,33 @@
-import requests
+import os
 from typing import List, Dict, Any, Optional
+from dotenv import load_dotenv
+import google.generativeai as genai
+from openai import OpenAI
+import json
+
+load_dotenv()
 
 class LLM:
-    def __init__(self, model: str = "mistral"):
+    def __init__(self, model: str = "gemini"):
         self.model = model
-        self.api_url = "http://localhost:11434/api/generate"
+        self.gemini_api_key = os.getenv('GEMINI_API_KEY')
+        self.openai_api_key = os.getenv('OPENAI_API_KEY')
+        
+        # Initialize Gemini if API key is available
+        if self.gemini_api_key:
+            genai.configure(api_key=self.gemini_api_key)
+            self.gemini_model = genai.GenerativeModel('gemini-pro')
+        else:
+            self.gemini_model = None
+            
+        # Initialize OpenAI if API key is available
+        if self.openai_api_key:
+            self.openai_client = OpenAI(api_key=self.openai_api_key)
+        else:
+            self.openai_client = None
+            
+        if not self.gemini_model and not self.openai_client:
+            raise ValueError("No LLM API keys configured. Please set either GEMINI_API_KEY or OPENAI_API_KEY in your environment.")
         
     async def generate_response(self, query: str, context: List[Dict[str, Any]], domain: str = "finance") -> str:
         # Format context for the prompt
@@ -20,19 +43,10 @@ class LLM:
             "legal": "You are a legal analysis AI assistant specializing in contract analysis, regulatory compliance, and risk assessment.",
             "news": "You are a fact-checking AI assistant that cross-references claims with reliable sources and provides journalistic analysis.",
             "ecommerce": "You are an AI-powered product advisor specialized in product comparisons and personalized recommendations.",
-            "education": "You are an educational AI tutor specializing in explaining complex concepts using proven teaching methods.",
-            "code": "You are a code assistant AI specializing in providing implementation examples, debugging help, and best practices.",
-            "hr": "You are an HR automation AI specializing in candidate assessment, policy analysis, and recruitment optimization.",
-            "travel": "You are a travel planning AI specializing in creating personalized itineraries and travel recommendations.",
-            "science": "You are a scientific research AI specializing in analyzing research papers and summarizing scientific findings.",
-            "cybersecurity": "You are a cybersecurity AI specializing in threat intelligence analysis and security recommendations.",
-            "knowledge": "You are a knowledge management AI specializing in analyzing internal documents and extracting key insights.",
-            "realestate": "You are a real estate analysis AI specializing in market trends, property insights, and investment opportunities.",
-            "fitness": "You are a fitness and health coaching AI specializing in personalized exercise and nutrition recommendations.",
-            "support": "You are a customer support AI specializing in providing accurate technical assistance and troubleshooting guidance."
+            "education": "You are an educational AI tutor specializing in explaining complex concepts using proven teaching methods."
         }
 
-        prompt = f"""{domain_prompts.get(domain, domain_prompts["knowledge"])} Use the following context to answer the question. 
+        prompt = f"""{domain_prompts.get(domain, domain_prompts["finance"])} Use the following context to answer the question. 
 If you cannot answer the question based on the context, say so.
 
 Context:
@@ -42,19 +56,34 @@ Question: {query}
 
 Answer:"""
 
-        response = requests.post(
-            self.api_url,
-            json={
-                "model": self.model,
-                "prompt": prompt,
-                "stream": False
-            }
-        )
+        # Try Gemini first if available
+        if self.gemini_model:
+            try:
+                response = self.gemini_model.generate_content(prompt)
+                return response.text
+            except Exception as e:
+                print(f"Gemini API error: {e}")
+                if not self.openai_client:  # If no fallback available
+                    raise e
         
-        if response.status_code != 200:
-            raise Exception("Failed to get response from LLM")
-            
-        return response.json()["response"]
+        # Fallback to OpenAI if Gemini fails or is not available
+        if self.openai_client:
+            try:
+                response = self.openai_client.chat.completions.create(
+                    model="gpt-3.5-turbo",
+                    messages=[
+                        {"role": "system", "content": domain_prompts.get(domain, domain_prompts["finance"])},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0.7,
+                    max_tokens=1000
+                )
+                return response.choices[0].message.content
+            except Exception as e:
+                print(f"OpenAI API error: {e}")
+                raise e
+        
+        raise Exception("No LLM services available")
     
     async def summarize(self, text: str, instruction: str) -> str:
         """Summarize text with specific instructions."""
@@ -65,19 +94,34 @@ Text to analyze:
 
 Summary:"""
 
-        response = requests.post(
-            self.api_url,
-            json={
-                "model": self.model,
-                "prompt": prompt,
-                "stream": False
-            }
-        )
+        # Try Gemini first if available
+        if self.gemini_model:
+            try:
+                response = self.gemini_model.generate_content(prompt)
+                return response.text
+            except Exception as e:
+                print(f"Gemini API error: {e}")
+                if not self.openai_client:
+                    raise e
         
-        if response.status_code != 200:
-            raise Exception("Failed to get summary from LLM")
-            
-        return response.json()["response"]
+        # Fallback to OpenAI
+        if self.openai_client:
+            try:
+                response = self.openai_client.chat.completions.create(
+                    model="gpt-3.5-turbo",
+                    messages=[
+                        {"role": "system", "content": "You are a helpful AI assistant that summarizes text based on given instructions."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0.7,
+                    max_tokens=500
+                )
+                return response.choices[0].message.content
+            except Exception as e:
+                print(f"OpenAI API error: {e}")
+                raise e
+        
+        raise Exception("No LLM services available")
     
     async def fact_check(self, claim: str, sources: List[str]) -> Dict[str, Any]:
         """Fact check a claim against provided sources."""

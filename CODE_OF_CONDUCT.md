@@ -41,21 +41,25 @@ Instances of abusive, harassing, or otherwise unacceptable behavior may be repor
 Project maintainers will follow these Community Impact Guidelines in determining the consequences for any action they deem in violation of this Code of Conduct:
 
 ### 1. Correction
+
 **Impact**: Use of inappropriate language or other behavior deemed unprofessional.
 **Consequence**: A private, written warning, providing clarity around the nature of the violation.
 
 ### 2. Warning
+
 **Impact**: A violation through a single incident or series of actions.
 **Consequence**: A warning with consequences for continued behavior.
 
 ### 3. Temporary Ban
+
 **Impact**: A serious violation of community standards.
 **Consequence**: A temporary ban from any sort of interaction or public communication with the community.
 
 ### 4. Permanent Ban
+
 **Impact**: Demonstrating a pattern of violation of community standards.
 **Consequence**: A permanent ban from any sort of public interaction within the community.
 
 ## Attribution
 
-This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org/), version 2.1, available at [https://www.contributor-covenant.org/version/2/1/code_of_conduct.html](https://www.contributor-covenant.org/version/2/1/code_of_conduct.html). 
+This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org/), version 2.1, available at [https://www.contributor-covenant.org/version/2/1/code_of_conduct.html](https://www.contributor-covenant.org/version/2/1/code_of_conduct.html).

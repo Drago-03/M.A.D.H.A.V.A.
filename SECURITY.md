@@ -89,4 +89,4 @@ Our project implements several security measures:
 
 ## Acknowledgments
 
-We would like to thank all security researchers and contributors who help keep our project secure. Your efforts are greatly appreciated. 
+We would like to thank all security researchers and contributors who help keep our project secure. Your efforts are greatly appreciated.

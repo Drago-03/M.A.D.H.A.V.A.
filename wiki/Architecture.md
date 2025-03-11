@@ -23,6 +23,7 @@ Our application follows a modern microservices architecture with the following k
 ### 1. Frontend Architecture
 
 #### React.js Application Structure
+
 ```
 client/
 ├── src/
@@ -35,6 +36,7 @@ client/
 ```
 
 #### Key Features
+
 - Component-based architecture
 - State management with React hooks
 - Real-time updates via WebSocket
@@ -44,6 +46,7 @@ client/
 ### 2. Backend Architecture
 
 #### FastAPI Application Structure
+
 ```
 backend/
 ├── api/            # API endpoints
@@ -55,6 +58,7 @@ backend/
 ```
 
 #### Key Features
+
 - RESTful API design
 - Async request handling
 - WebSocket support
@@ -65,6 +69,7 @@ backend/
 ### 3. Database Architecture
 
 #### MongoDB Collections
+
 ```
 mongodb/
 ├── users/          # User information
@@ -74,6 +79,7 @@ mongodb/
 ```
 
 #### Redis Structure
+
 ```
 redis/
 ├── sessions/       # User sessions
@@ -84,12 +90,14 @@ redis/
 ### 4. AI Integration
 
 #### Gemini API Integration
+
 - Query processing
 - Response generation
 - Context management
 - Domain adaptation
 
 #### Vector Store
+
 - Document embeddings
 - Similarity search
 - Context retrieval
@@ -98,16 +106,19 @@ redis/
 ## Data Flow
 
 1. **User Query Flow**
+
 ```
 User Input → Frontend → Backend → Gemini API → Response Processing → Frontend → User Display
 ```
 
 2. **Document Processing Flow**
+
 ```
 Document → Vector Embedding → Vector Store → Similarity Search → Context Retrieval → Response Generation
 ```
 
 3. **Analytics Flow**
+
 ```
 User Action → Event Tracking → Analytics Processing → MongoDB Storage → Dashboard Display
 ```
@@ -115,17 +126,20 @@ User Action → Event Tracking → Analytics Processing → MongoDB Storage → 
 ## Security Architecture
 
 ### 1. Authentication
+
 - JWT-based authentication
 - Session management
 - Role-based access control
 
 ### 2. Data Protection
+
 - HTTPS encryption
 - API key management
 - Input validation
 - XSS prevention
 
 ### 3. Rate Limiting
+
 - API rate limiting
 - DDoS protection
 - Request throttling
@@ -133,16 +147,19 @@ User Action → Event Tracking → Analytics Processing → MongoDB Storage → 
 ## Scalability
 
 ### 1. Horizontal Scaling
+
 - Container orchestration
 - Load balancing
 - Service replication
 
 ### 2. Vertical Scaling
+
 - Resource optimization
 - Cache management
 - Database indexing
 
 ### 3. Performance Optimization
+
 - CDN integration
 - Response caching
 - Query optimization
@@ -150,16 +167,19 @@ User Action → Event Tracking → Analytics Processing → MongoDB Storage → 
 ## Monitoring and Logging
 
 ### 1. System Monitoring
+
 - Server metrics
 - API performance
 - Error tracking
 
 ### 2. Application Logging
+
 - Request logging
 - Error logging
 - Audit trails
 
 ### 3. Analytics
+
 - User behavior
 - System usage
 - Performance metrics
@@ -167,16 +187,19 @@ User Action → Event Tracking → Analytics Processing → MongoDB Storage → 
 ## Deployment Architecture
 
 ### 1. Development Environment
+
 - Local development setup
 - Testing environment
 - CI/CD pipeline
 
 ### 2. Staging Environment
+
 - Pre-production testing
 - Integration testing
 - Performance testing
 
 ### 3. Production Environment
+
 - High availability setup
 - Backup systems
 - Disaster recovery
@@ -196,4 +219,4 @@ User Action → Event Tracking → Analytics Processing → MongoDB Storage → 
 3. **Technical Debt**
    - Code refactoring
    - Documentation updates
-   - Test coverage 
+   - Test coverage

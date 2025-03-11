@@ -44,4 +44,4 @@ Our project is a multi-domain analytical platform that leverages AI to provide i
 - Check the [FAQ](./FAQ.md) for common questions
 - Visit our [Troubleshooting](./Troubleshooting.md) guide
 - Join our community discussions
-- Report issues on GitHub 
+- Report issues on GitHub

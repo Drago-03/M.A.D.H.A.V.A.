@@ -3,6 +3,7 @@
 ## Frontend Technologies
 
 ### React.js (v18+)
+
 - **Purpose**: Main frontend framework
 - **Usage**:
   - Component-based UI architecture
@@ -12,6 +13,7 @@
   - Real-time updates
 
 ### CSS3 with Modern Features
+
 - **Purpose**: Styling and animations
 - **Usage**:
   - Flexbox and Grid layouts
@@ -21,6 +23,7 @@
   - Shadow effects and gradients
 
 ### React Router (v6)
+
 - **Purpose**: Client-side routing
 - **Usage**:
   - Dynamic route handling
@@ -31,6 +34,7 @@
 ## Backend Technologies
 
 ### FastAPI
+
 - **Purpose**: Main backend framework
 - **Usage**:
   - RESTful API endpoints
@@ -41,6 +45,7 @@
   - Async request handling
 
 ### Python (v3.11+)
+
 - **Purpose**: Backend programming language
 - **Usage**:
   - API implementation
@@ -50,6 +55,7 @@
   - System management
 
 ### Uvicorn
+
 - **Purpose**: ASGI server
 - **Usage**:
   - Server deployment
@@ -60,6 +66,7 @@
 ## Database Technologies
 
 ### MongoDB
+
 - **Purpose**: Primary database
 - **Usage**:
   - User data storage
@@ -69,6 +76,7 @@
   - Metadata management
 
 ### Redis
+
 - **Purpose**: Caching and real-time features
 - **Usage**:
   - Session management
@@ -78,6 +86,7 @@
   - Rate limiting
 
 ### Vector Store
+
 - **Purpose**: Semantic search and embeddings
 - **Usage**:
   - Document embeddings storage
@@ -88,6 +97,7 @@
 ## AI and ML Technologies
 
 ### Google Gemini API
+
 - **Purpose**: Large Language Model integration
 - **Usage**:
   - Query processing
@@ -97,6 +107,7 @@
   - Natural language understanding
 
 ### Sentence Transformers
+
 - **Purpose**: Text embeddings
 - **Usage**:
   - Document embedding generation
@@ -105,6 +116,7 @@
   - Context matching
 
 ### Hugging Face Transformers
+
 - **Purpose**: ML model integration
 - **Usage**:
   - Text processing
@@ -115,6 +127,7 @@
 ## Development and Deployment Tools
 
 ### Node.js
+
 - **Purpose**: Development environment
 - **Usage**:
   - Package management (npm)
@@ -123,6 +136,7 @@
   - Frontend dependency management
 
 ### Venv
+
 - **Purpose**: Python virtual environment
 - **Usage**:
   - Dependency isolation
@@ -131,6 +145,7 @@
   - Version control
 
 ### Git
+
 - **Purpose**: Version control
 - **Usage**:
   - Code versioning
@@ -141,6 +156,7 @@
 ## Additional Libraries and Tools
 
 ### Pydantic
+
 - **Purpose**: Data validation
 - **Usage**:
   - Request/response models
@@ -149,6 +165,7 @@
   - Schema validation
 
 ### python-dotenv
+
 - **Purpose**: Environment management
 - **Usage**:
   - API key management
@@ -157,6 +174,7 @@
   - Secure credentials
 
 ### CORS Middleware
+
 - **Purpose**: Cross-origin resource sharing
 - **Usage**:
   - API security
@@ -165,6 +183,7 @@
   - Request validation
 
 ### WebSocket
+
 - **Purpose**: Real-time communication
 - **Usage**:
   - Live updates
@@ -173,6 +192,7 @@
   - Bi-directional communication
 
 ### JWT
+
 - **Purpose**: Authentication
 - **Usage**:
   - User authentication
@@ -183,6 +203,7 @@
 ## Testing and Monitoring
 
 ### Pytest
+
 - **Purpose**: Testing framework
 - **Usage**:
   - Unit testing
@@ -191,6 +212,7 @@
   - Coverage reporting
 
 ### Logging
+
 - **Purpose**: Application monitoring
 - **Usage**:
   - Error tracking
@@ -201,6 +223,7 @@
 ## Performance Optimization
 
 ### Redis Cache
+
 - **Purpose**: Performance enhancement
 - **Usage**:
   - Query caching
@@ -209,6 +232,7 @@
   - Rate limiting
 
 ### Vector Batching
+
 - **Purpose**: Efficient processing
 - **Usage**:
   - Batch embeddings
@@ -217,9 +241,10 @@
   - Query optimization
 
 This technical stack enables M.A.D.H.A.V.A. to provide:
+
 - Fast and responsive user interface
 - Efficient data processing
 - Scalable architecture
 - Secure data handling
 - Real-time capabilities
-- Intelligent analysis across domains 
+- Intelligent analysis across domains

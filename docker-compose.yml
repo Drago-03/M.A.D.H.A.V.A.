@@ -14,14 +14,20 @@ services:
 
   backend:
     build:
-      context: .
+      context: ./backend
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
+    volumes:
+      - ./backend:/app
     environment:
-      - MONGODB_URI=mongodb://mongodb:27017/madhava
-      - REDIS_URL=redis://redis:6379
-      - GATEWAY_PORT=8000
+      - PYTHONUNBUFFERED=1
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     depends_on:
       - mongodb
       - redis

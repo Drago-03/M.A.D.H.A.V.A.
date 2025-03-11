@@ -1,20 +1,21 @@
 .domain-page {
-  padding-top: 80px;
   min-height: 100vh;
-  background: #f5f5f5;
+  background: var(--bg-secondary);
+  margin-top: -2rem; /* Remove the gap */
 }
 
 .domain-header {
   text-align: center;
   padding: 3rem 2rem;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 100%);
+  background: linear-gradient(180deg, #1a1a1a 0%, #2c3e50 100%);
   color: white;
-  margin-bottom: 2rem;
+  position: relative;
 }
 
 .domain-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  animation: float 3s ease-in-out infinite;
 }
 
 .domain-header h1 {
@@ -22,12 +23,25 @@
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
+  margin-bottom: 1rem;
 }
 
 .domain-header p {
   font-size: 1.2rem;
-  margin: 1rem 0 0;
   opacity: 0.9;
   max-width: 600px;
-  margin: 1rem auto 0;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 } 

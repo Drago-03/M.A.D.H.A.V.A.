@@ -7,6 +7,7 @@ import asyncio
 import uvicorn
 import json
 import os
+from dotenv import load_dotenv
 
 from embeddings import EmbeddingStore
 from llm import LLM
@@ -14,12 +15,23 @@ from metrics_extractor import MetricsExtractor
 from alert_manager import AlertManager
 from domain_processors import DomainProcessor
 
-app = FastAPI(title="ANAND - Advanced Neural Assistance for Numerous Domain Intelligence")
+# Load environment variables
+load_dotenv()
 
-# Configure CORS
+app = FastAPI(
+    title="M.A.D.H.A.V.A.",
+    description="Multi-domain Analytical Data Harvesting & Automated Verification Assistant",
+    version="1.0.0"
+)
+
+# Configure CORS with more specific settings
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://0.0.0.0:5173"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -155,19 +167,15 @@ async def process_documents():
         except Exception as e:
             print(f"Error processing documents for domain {domain}: {str(e)}")
 
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
+
 if __name__ == "__main__":
-    import asyncio
-
-    async def main():
-        for domain in embedding_stores.keys():
-            os.makedirs(f"data/{domain}", exist_ok=True)
-
-        await asyncio.gather(
-            alert_manager.start_websocket_server(),
-            process_documents()
-        )
-
-    loop = asyncio.get_event_loop()
-    loop.create_task(main())
-
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.getenv('PORT', 5000))
+    uvicorn.run(
+        app,
+        host="0.0.0.0",  # Allow connections from all interfaces
+        port=port,
+        reload=True
+    )
